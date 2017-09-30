@@ -1,0 +1,14 @@
+javax.persistence:
+    provider: org.hibernate.ejb.HibernatePersistence
+    transactionType: RESOURCE_LOCAL
+
+hibernate:
+    connection:
+        username: sa
+        password: 
+        driver_class: org.h2.Driver
+        url: jdbc:h2:mem:example-app;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    dialect: org.hibernate.dialect.H2Dialect
+    hbm2ddl.auto: create-drop
+    show_sql: true
+    format_sql: true
