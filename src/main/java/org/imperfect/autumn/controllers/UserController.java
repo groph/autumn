@@ -3,7 +3,6 @@ package org.imperfect.autumn.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +21,7 @@ public class UserController extends HttpServlet {
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+			throws IOException {
 		
 		User userToCreate = mapper.readValue(req.getInputStream(), User.class);
 		
@@ -34,9 +33,9 @@ public class UserController extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+			throws IOException {
 		
-		String id = getidFromPathInfo(req.getPathInfo());
+		String id = getIdFromPathInfo(req.getPathInfo());
 		
 		Object data = (id == null)? service.findAll()
 				: service.findOne(Integer.parseInt(id));
@@ -50,9 +49,9 @@ public class UserController extends HttpServlet {
 	
 	@Override
 	public void doPut(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+			throws IOException {
 		
-		String id = getidFromPathInfo(req.getPathInfo());
+		String id = getIdFromPathInfo(req.getPathInfo());
 		User userToUpdate = mapper.readValue(req.getInputStream(), User.class);
 		
 		User updatedUser = service.update(Integer.parseInt(id), userToUpdate);
@@ -63,9 +62,9 @@ public class UserController extends HttpServlet {
 	
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+			throws IOException {
 		
-		String id = getidFromPathInfo(req.getPathInfo());
+		String id = getIdFromPathInfo(req.getPathInfo());
 		
 		User deletedUser = service.delete(Integer.parseInt(id));
 		
@@ -73,7 +72,7 @@ public class UserController extends HttpServlet {
 		resp.setStatus(HttpServletResponse.SC_OK);
 	}
 	
-	private String getidFromPathInfo(String pathInfo) {
+	private String getIdFromPathInfo(String pathInfo) {
 		if(pathInfo == null || pathInfo.equals("/")) {
 			return null;
 		}

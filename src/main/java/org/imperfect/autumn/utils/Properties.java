@@ -1,13 +1,13 @@
 package org.imperfect.autumn.utils;
 
-import java.io.IOException;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.InputStream;
 import java.util.Map;
-import org.yaml.snakeyaml.Yaml;
 
 public class Properties extends java.util.Properties {
 	
-	public void loadFromYML(InputStream source) throws IOException {
+	public void loadFromYML(InputStream source) {
 		Map<String, Object> root = new Yaml().loadAs(source, Map.class);
 		loadFromNode(root, "");
 	}

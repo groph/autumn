@@ -19,13 +19,12 @@ public class BindingInstances extends AbstractModule {
 			.getResource("/Application.yml");
 	
 	public static Injector injector() {
-		Injector injector = Guice.createInjector(new BindingInstances());
-		return injector;
+		return Guice.createInjector(new BindingInstances());
 	}
 	
 	@Override
 	protected void configure() {
-		
+		// Intentionally empty.
 	}
 	
 	@Provides

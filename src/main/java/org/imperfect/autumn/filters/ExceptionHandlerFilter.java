@@ -18,8 +18,8 @@ public class ExceptionHandlerFilter implements Filter {
 	private final ObjectMapper mapper = new ObjectMapper();
 	
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		
+	public void init(FilterConfig filterConfig) {
+		// Intentionally empty.
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class ExceptionHandlerFilter implements Filter {
 	
 	@Override
 	public void destroy() {
-		
+		// Intentionally empty.
 	}
 	
 }

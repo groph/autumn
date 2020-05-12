@@ -13,8 +13,8 @@ import javax.ws.rs.core.MediaType;
 public class CommonRestHeadersFilter implements Filter {
 	
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		
+	public void init(FilterConfig filterConfig) {
+		// Intentionally empty.
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public class CommonRestHeadersFilter implements Filter {
 	
 	@Override
 	public void destroy() {
-		
+		// Intentionally empty.
 	}
 	
 }

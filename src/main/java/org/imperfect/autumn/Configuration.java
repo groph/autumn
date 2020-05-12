@@ -37,11 +37,11 @@ public class Configuration extends Properties {
 	}
 	
 	public boolean isShowSql() {
-		return Boolean.valueOf(getProperty("hibernate.show_sql"));
+		return Boolean.parseBoolean(getProperty("hibernate.show_sql"));
 	}
 	
 	public boolean isFormatSql() {
-		return Boolean.valueOf(getProperty("hibernate.format_sql"));
+		return Boolean.parseBoolean(getProperty("hibernate.format_sql"));
 	}
 	
 }
