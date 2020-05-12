@@ -1,18 +1,8 @@
-package org.imperfect.autumn.model;
+package org.imperfect.autumn.user.model;
 
-public class User {
-	
-	private int id;
+public class UserDescriptor {
 	
 	private String username;
-	
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
 	
 	public String getUsername() {
 		return username;

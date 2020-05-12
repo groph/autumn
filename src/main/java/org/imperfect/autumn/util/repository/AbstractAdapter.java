@@ -1,12 +1,12 @@
-package org.imperfect.autumn.adapters;
+package org.imperfect.autumn.util.repository;
 
+import javax.persistence.PersistenceException;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.imperfect.autumn.exceptions.DataAccessException;
 
 public abstract class AbstractAdapter<T, ID extends Serializable> {
 	
@@ -26,7 +26,7 @@ public abstract class AbstractAdapter<T, ID extends Serializable> {
 			if(generatedKeys.next()) {
 				return generatedKeys.getObject(1, serializableClass);
 			}
-			throw new DataAccessException("Failed to persist data!");
+			throw new PersistenceException("Failed to persist data!");
 		}
 	}
 	

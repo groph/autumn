@@ -1,8 +1,11 @@
-package org.imperfect.autumn.filters;
+package org.imperfect.autumn.shared.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.imperfect.autumn.util.exception.MethodNotAllowedException;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,6 +15,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.ws.rs.core.MediaType;
+
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+import static javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 public class ExceptionHandlerFilter implements Filter {
 	
@@ -30,18 +37,24 @@ public class ExceptionHandlerFilter implements Filter {
 		} catch(IllegalArgumentException ex) {
 			HttpServletResponse errorResponse = new HttpServletResponseWrapper(
 					(HttpServletResponse) response);
-			handle4xxErrors(errorResponse, ex);
+			handleErrors(errorResponse, ex.getMessage(), SC_BAD_REQUEST);
+		} catch(EntityNotFoundException ex) {
+			HttpServletResponse errorResponse = new HttpServletResponseWrapper(
+					(HttpServletResponse) response);
+			handleErrors(errorResponse, ex.getMessage(), SC_NOT_FOUND);
+		} catch(MethodNotAllowedException ex) {
+			HttpServletResponse errorResponse = new HttpServletResponseWrapper(
+					(HttpServletResponse) response);
+			handleErrors(errorResponse, ex.getMessage(), SC_METHOD_NOT_ALLOWED);
 		}
 	}
-	
-	private void handle4xxErrors(HttpServletResponse response, IllegalArgumentException ex)
+	private void handleErrors(HttpServletResponse response, String message, int statusCode)
 			throws IOException {
 		
 		response.setContentType(MediaType.APPLICATION_JSON);
 		response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		response.setStatus(statusCode);
 		
-		String message = String.format("\"%s\"", ex.getMessage());
 		response.getWriter().write(mapper.writeValueAsString(message));
 	}
 	

@@ -1,29 +1,36 @@
-package org.imperfect.autumn.controllers;
+package org.imperfect.autumn.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
+import org.imperfect.autumn.user.model.User;
+import org.imperfect.autumn.user.model.UserDescriptor;
+import org.imperfect.autumn.util.exception.MethodNotAllowedException;
+
 import javax.inject.Inject;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.imperfect.autumn.model.User;
-import org.imperfect.autumn.services.UserService;
+import java.io.IOException;
 
 public class UserController extends HttpServlet {
 	
-	private final ObjectMapper mapper = new ObjectMapper();
+	private final ObjectMapper mapper;
 	private final UserService service;
 	
 	@Inject
-	public UserController(UserService service) {
+	public UserController(UserService service, ObjectMapper mapper) {
 		this.service = service;
+		this.mapper = mapper;
 	}
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+			throws ServletException, IOException {
 		
-		User userToCreate = mapper.readValue(req.getInputStream(), User.class);
+		assertNotEmptyPath(req.getPathInfo());
+		
+		UserDescriptor userToCreate = mapper.readValue(req.getInputStream(),
+				UserDescriptor.class);
 		
 		User createdUser = service.save(userToCreate);
 		
@@ -49,10 +56,13 @@ public class UserController extends HttpServlet {
 	
 	@Override
 	public void doPut(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+			throws ServletException, IOException {
+		
+		assertEmptyPath(req.getPathInfo());
 		
 		String id = getIdFromPathInfo(req.getPathInfo());
-		User userToUpdate = mapper.readValue(req.getInputStream(), User.class);
+		UserDescriptor userToUpdate = mapper.readValue(req.getInputStream(),
+				UserDescriptor.class);
 		
 		User updatedUser = service.update(Integer.parseInt(id), userToUpdate);
 		
@@ -62,7 +72,9 @@ public class UserController extends HttpServlet {
 	
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+			throws ServletException, IOException {
+		
+		assertEmptyPath(req.getPathInfo());
 		
 		String id = getIdFromPathInfo(req.getPathInfo());
 		
@@ -70,6 +82,26 @@ public class UserController extends HttpServlet {
 		
 		resp.getWriter().write(mapper.writeValueAsString(deletedUser));
 		resp.setStatus(HttpServletResponse.SC_OK);
+	}
+	
+	private boolean isEmptyPath(String pathInfo) {
+		return pathInfo == null  || pathInfo.isEmpty() || pathInfo.equals("/");
+	}
+	
+	private void assertEmptyPath(String pathInfo)
+			throws MethodNotAllowedException {
+		
+		if(isEmptyPath(pathInfo)) {
+			throw new MethodNotAllowedException();
+		}
+	}
+	
+	private void assertNotEmptyPath(String pathInfo)
+			throws MethodNotAllowedException {
+		
+		if(!isEmptyPath(pathInfo)) {
+			throw new MethodNotAllowedException();
+		}
 	}
 	
 	private String getIdFromPathInfo(String pathInfo) {

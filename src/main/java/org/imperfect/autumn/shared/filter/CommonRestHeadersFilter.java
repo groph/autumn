@@ -1,4 +1,4 @@
-package org.imperfect.autumn.filters;
+package org.imperfect.autumn.shared.filter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

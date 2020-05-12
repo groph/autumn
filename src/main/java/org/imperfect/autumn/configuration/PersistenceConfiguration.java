@@ -1,8 +1,6 @@
-package org.imperfect.autumn;
+package org.imperfect.autumn.configuration;
 
-import org.imperfect.autumn.utils.Properties;
-
-public class Configuration extends Properties {
+public class PersistenceConfiguration extends PersistenceProperties {
 	
 	public String getProvider() {
 		return getProperty("javax.persistence.provider");
