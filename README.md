@@ -7,4 +7,4 @@ Besides that, This is also an experiment of using as few libraries as possible w
 Enjoy
 
 ## Testing/using
-You can find Postman environment and collections in the ```src/testresources``` directory to try it out.
+You can find Postman environment and collections in the ```doc/postman``` directory to try it out.
