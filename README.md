@@ -8,3 +8,6 @@ Enjoy
 
 ## Testing/using
 You can find Postman environment and collections in the ```doc/postman``` directory to try it out.
+
+To start the service please run the ```./mvnw cargo:run``` command.
+The service will be available at http://localhost:8080/autumn .
