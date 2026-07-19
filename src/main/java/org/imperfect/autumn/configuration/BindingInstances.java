@@ -1,6 +1,5 @@
 package org.imperfect.autumn.configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -19,6 +18,8 @@ import org.imperfect.autumn.user.UserContext;
 import org.imperfect.autumn.user.UserRepository;
 import org.imperfect.autumn.user.UserController;
 import org.imperfect.autumn.user.UserService;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 public class BindingInstances extends AbstractModule {
 	
@@ -87,24 +88,25 @@ public class BindingInstances extends AbstractModule {
 	
 	@Provides
 	@Singleton
-	public ExceptionHandlerFilter exceptionHandlerFilter() {
-		return new ExceptionHandlerFilter();
+	public ExceptionHandlerFilter exceptionHandlerFilter(ObjectMapper mapper) {
+		return new ExceptionHandlerFilter(mapper);
 	}
 	
 	@Provides
 	@Singleton
-	public UserContext userContext(UserController userController) {
+	public UserContext userContext(UserController userController, ExceptionHandlerFilter exceptionHandlerFilter) {
 		return new UserContext(
 				userController,
 				commonRestHeadersFilter(),
 				guiceFilter(),
-				exceptionHandlerFilter());
+				exceptionHandlerFilter);
 	}
-	
+
 	@Provides
 	@Singleton
 	public ObjectMapper objectMapper() {
-		return new ObjectMapper();
+        return JsonMapper.builder()
+				.build();
 	}
 	
 }

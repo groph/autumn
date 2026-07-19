@@ -1,13 +1,12 @@
 package org.imperfect.autumn;
 
 import com.google.inject.Injector;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.annotation.WebListener;
 import org.imperfect.autumn.configuration.BindingInstances;
 import org.imperfect.autumn.user.UserContext;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class Application implements ServletContextListener {

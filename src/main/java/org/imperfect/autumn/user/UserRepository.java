@@ -1,11 +1,11 @@
 package org.imperfect.autumn.user;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceException;
 import org.imperfect.autumn.user.model.User;
 import org.imperfect.autumn.user.model.UserDescriptor;
 import org.imperfect.autumn.util.repository.AbstractAdapter;
 
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.PersistenceException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

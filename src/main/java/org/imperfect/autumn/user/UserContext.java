@@ -2,10 +2,9 @@ package org.imperfect.autumn.user;
 
 import com.google.inject.Inject;
 import com.google.inject.servlet.GuiceFilter;
+import jakarta.servlet.ServletContext;
 import org.imperfect.autumn.shared.filter.CommonRestHeadersFilter;
 import org.imperfect.autumn.shared.filter.ExceptionHandlerFilter;
-
-import javax.servlet.ServletContext;
 
 public class UserContext {
 	

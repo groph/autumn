@@ -1,7 +1,6 @@
 package org.imperfect.autumn.user;
 
-import javax.inject.Inject;
-
+import jakarta.inject.Inject;
 import org.imperfect.autumn.user.model.User;
 import org.imperfect.autumn.user.model.UserDescriptor;
 

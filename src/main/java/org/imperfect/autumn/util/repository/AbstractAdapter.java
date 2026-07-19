@@ -1,6 +1,7 @@
 package org.imperfect.autumn.util.repository;
 
-import javax.persistence.PersistenceException;
+import jakarta.persistence.PersistenceException;
+
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

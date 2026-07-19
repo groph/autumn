@@ -1,6 +1,6 @@
 package org.imperfect.autumn.util.exception;
 
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 
 public class MethodNotAllowedException extends ServletException {
 	

@@ -1,15 +1,15 @@
 package org.imperfect.autumn.user;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.inject.Inject;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.imperfect.autumn.user.model.User;
 import org.imperfect.autumn.user.model.UserDescriptor;
 import org.imperfect.autumn.util.exception.MethodNotAllowedException;
+import tools.jackson.databind.ObjectMapper;
 
-import javax.inject.Inject;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserController extends HttpServlet {
